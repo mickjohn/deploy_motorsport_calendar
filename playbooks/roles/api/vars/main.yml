@@ -1,0 +1,21 @@
+---
+service_name: motorsport_calendar_apid
+local_dev_dir: /home/mick/Programs/rust/motorsport_calendar_api
+package_name: mscapi
+version: 1.2
+
+install_dir: /opt/mickjohn/api
+conf_file: conf.yml
+log4rs_conf_file: log4rs.yml
+executable_name: motorsport_calendar_api
+# package_name: api.tar.bz2
+# service_name: motorsport_calendar_apid
+service_description: motorsport calendar api
+# owner: mick
+# group: mick
+
+extra_vars:
+  ROCKET_ADDRESS: 127.0.0.1
+  ROCKET_PORT: 8000
+  ROCKET_WORKERS: 10
+  RUST_LOG: info

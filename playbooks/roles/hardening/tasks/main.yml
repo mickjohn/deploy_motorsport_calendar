@@ -1,0 +1,5 @@
+---
+# Disable root login
+# Login with ssh only
+# Firewall, only ports 22,80,443
+# Fail2Ban

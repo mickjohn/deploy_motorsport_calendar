@@ -1,0 +1,8 @@
+localhost
+
+[all:vars]
+ansible_port=2222
+ansible_user=vagrant
+user=vagrant
+group=vagrant
+data_src = "/home/mick/Programs/rust/motorsport_calendar_api/data"
