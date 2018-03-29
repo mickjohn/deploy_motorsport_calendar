@@ -4,7 +4,7 @@
     name: "{{ item.username }}"
     append: yes
     groups: "{{ item.groups | join(',') }}"
-    shell: bash
+    shell: /bin/bash
   with_items: "{{ users }}"
   become: yes
 

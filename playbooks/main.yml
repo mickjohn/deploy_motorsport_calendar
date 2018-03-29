@@ -1,8 +1,8 @@
 ---
 - hosts: all
   roles:
-     # - api
-     # - webserver
-     # - nginx
      - users
      - hardening
+     - api
+     - webserver
+     - nginx
