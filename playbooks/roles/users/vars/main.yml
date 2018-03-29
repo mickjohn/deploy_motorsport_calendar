@@ -1,0 +1,6 @@
+---
+users:
+  - username: mick
+    public_key_file: mick_rsa.pub
+    groups:
+      - sudo

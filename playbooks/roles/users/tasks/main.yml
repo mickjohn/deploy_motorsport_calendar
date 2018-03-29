@@ -1,0 +1,18 @@
+---
+- name: Add users
+  user:
+    name: "{{ item.username }}"
+    append: yes
+    groups: "{{ item.groups | join(',') }}"
+    shell: bash
+  with_items: "{{ users }}"
+  become: yes
+
+- name: Add public key to authorized keys
+  authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ lookup('file', item.public_key_file) }}"
+  with_items: "{{ users }}"
+  become: yes
+

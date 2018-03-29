@@ -1,3 +1,11 @@
-users:
-  - username: mick
-    public_key_file: mick_rsa.pub
+---
+lineinfile_items:
+  disable_ipv6:
+    - regexp: '^#*net.ipv6.conf.all.disable_ipv6'
+      line: 'net.ipv6.conf.all.disable_ipv6 = 1'
+
+    - regexp: '^#*net.ipv6.conf.default.disable_ipv6'
+      line: 'net.ipv6.conf.default.disable_ipv6 = 1'
+
+    - regexp: '^#*net.ipv6.conf.lo.disable_ipv6'
+      line: 'net.ipv6.conf.lo.disable_ipv6 = 1'

@@ -1,5 +1,55 @@
 ---
-# Disable root login
-# Login with ssh only
-# Firewall, only ports 22,80,443
+# users
 # Fail2Ban
+
+- name: Add users
+  user:
+    name: "{{ item.username }}"
+  with_items: "{{ users }}"
+  become: yes
+
+- name: Disable root login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#*PermitRootLogin'
+    line: 'PermitRootLogin no'
+  become: yes
+
+# - name: Disable password login
+#   lineinfile:
+#     path: /etc/ssh/sshd_config
+#     regexp: '^#*PasswordAuthentication'
+#     line: 'PasswordAuthentication no'
+#   become: yes
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+  become: yes
+
+- name: Disable IPv6
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items: "{{ lineinfile_items.disable_ipv6 }}"
+  become: yes
+
+- name: Restart sysctl
+  command: sysctl -p
+  become: yes
+
+- name: Setup ufw
+  shell: |
+    ufw disable
+    ufw default deny incoming
+    ufw default allow outgoing
+    ufw allow 21/tcp # ftp
+    ufw allow 22/tcp
+    ufw allow 2222/tcp # vagrant ssh
+    ufw allow 80/tcp
+    ufw allow 443/tcp
+    echo y | ufw enable
+    exit 0
+  become: yes
