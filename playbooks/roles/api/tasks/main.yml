@@ -39,7 +39,7 @@
   shell: systemctl daemon-reload
   become: true
 
-- name: start api
+- name: start and enable api
   service:
     name: "{{ service_name }}"
     enabled: yes

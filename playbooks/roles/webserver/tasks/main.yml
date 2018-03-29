@@ -39,7 +39,7 @@
   shell: systemctl daemon-reload
   become: true
 
-- name: start webserver
+- name: start and enable webserver
   service:
     name: "{{ service_name }}"
     enabled: yes

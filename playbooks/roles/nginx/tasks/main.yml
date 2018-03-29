@@ -5,26 +5,36 @@
     state: present
   become: yes
 
-- name: Upload config file
+- name: Upload files
   copy:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-    owner: root
-    group: root
-    mode: 0644
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+  with_items: "{{ files }}"
   become: yes
 
-- name: Upload cert & key
-  copy:
-    src: "{{ item }}"
-    dest: /etc/nginx/{{ item }}
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - key.pem
-    - cert.pem
-  become: yes
+# - name: Upload config file
+#   copy:
+#     src: nginx.conf
+#     dest: /etc/nginx/nginx.conf
+#     owner: root
+#     group: root
+#     mode: 0644
+#   become: yes
+
+# - name: Upload cert & key
+#   copy:
+#     src: "{{ item }}"
+#     dest: /etc/nginx/{{ item }}
+#     owner: root
+#     group: root
+#     mode: 0644
+#   with_items:
+#     - key.pem
+#     - cert.pem
+#   become: yes
 
 - name: Restart and enable nginx
   service:
