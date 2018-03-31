@@ -15,12 +15,13 @@
     line: 'PermitRootLogin no'
   become: yes
 
-# - name: Disable password login
-#   lineinfile:
-#     path: /etc/ssh/sshd_config
-#     regexp: '^#*PasswordAuthentication'
-#     line: 'PasswordAuthentication no'
-#   become: yes
+- name: Disable password login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#*PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  become: yes
+  when: vagrant != True
 
 - name: restart sshd
   service:
