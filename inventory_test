@@ -1,8 +1,12 @@
 localhost
 
 [all:vars]
+ansible_connection=ssh
 ansible_port=2222
 ansible_user=vagrant
-user=vagrant
-group=vagrant
-data_src = "/home/mick/Programs/rust/motorsport_calendar_api/data"
+ansible_ssh_pass=vagrant
+user=mick
+group=mick
+vagrant=True
+lets_encrypt=False
+enable_ssl=False
