@@ -1,0 +1,64 @@
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+  worker_connections 768;
+}
+
+http {
+
+  upstream backends {
+    server 127.0.0.1:8080;
+  }
+
+  server {
+    listen	80;
+    server_name _;
+    {% if enable_ssl or lets_encrypt %}
+    return 301 https://$host$request_uri;
+    {% else %}
+    location / {
+      proxy_pass http://backends;
+    }
+    {% endif %}
+  }
+
+  {% if enable_ssl or lets_encrypt %}
+  server {
+    listen 443 ssl;
+    server_name _;
+    {% if enable_ssl %}
+    ssl_certificate	{{ files.ssl_cert.dest }};
+    ssl_certificate_key {{ files.ssl_key.dest }};
+    {% elif lets_encrypt %}
+    ssl_certificate	/etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+    {% endif %}
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    location / {
+      proxy_pass http://backends;
+    }
+  }
+  {% endif %}
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+  types_hash_max_size 2048;
+
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+  ssl_prefer_server_ciphers on;
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+
+  gzip on;
+  gzip_disable "msie6";
+
+  include /etc/nginx/conf.d/*.conf;
+}

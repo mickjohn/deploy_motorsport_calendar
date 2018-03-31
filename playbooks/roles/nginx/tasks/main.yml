@@ -1,40 +1,44 @@
 ---
+# - name: Stop nginx before obtaining cert
+#   service:
+#     name: nginx
+#     state: stopped
+#   ignore_errors: yes
+#   become: yes
+
+# - name: Run certbot to get cert
+#   command: > 
+#     certbot 
+#     certonly 
+#     -d {{ domain }} 
+#     --agree-tos 
+#     -m {{ email }} 
+#     --standalone
+#     -n
+#   when: lets_encrypt
+#   become: yes
+
 - name: Install nginx
   package:
     name: nginx
     state: present
   become: yes
 
-- name: Upload files
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner | default(omit) }}"
-    group: "{{ item.group | default(omit) }}"
-    mode: "{{ item.mode | default(omit) }}"
-  with_items: "{{ files }}"
+- name: Write config template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
   become: yes
 
-# - name: Upload config file
-#   copy:
-#     src: nginx.conf
-#     dest: /etc/nginx/nginx.conf
-#     owner: root
-#     group: root
-#     mode: 0644
-#   become: yes
-
-# - name: Upload cert & key
-#   copy:
-#     src: "{{ item }}"
-#     dest: /etc/nginx/{{ item }}
-#     owner: root
-#     group: root
-#     mode: 0644
-#   with_items:
-#     - key.pem
-#     - cert.pem
-#   become: yes
+- name: Upload files
+  copy:
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner | default(omit) }}"
+    group: "{{ item.value.group | default(omit) }}"
+    mode: "{{ item.value.mode | default(omit) }}"
+  with_dict: "{{ files }}"
+  become: yes
 
 - name: Restart and enable nginx
   service:
