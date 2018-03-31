@@ -5,6 +5,7 @@
     append: yes
     groups: "{{ item.groups | join(',') }}"
     shell: /bin/bash
+    password: "{{ item.password | default(omit) }}"
   with_items: "{{ users }}"
   become: yes
 

@@ -2,5 +2,6 @@
 users:
   - username: mick
     public_key_file: mick_rsa.pub
+    password: '$6$odAM2zPl262Bb.23$gt4l4Go3bcHLI9IcMk29SC4TvRfXXkaLWrwplIpzA0UdtzQh4ngV0OtUudailFDDLwVCHpG4dPc85VBQZouDO0'
     groups:
       - sudo
