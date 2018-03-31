@@ -14,7 +14,7 @@ function vagrant_ssh() {
 }
 
 function provision() {
-  ansible-playbook -i inventory_test playbooks/main.yml -k -u vagrant
+  ansible-playbook -i inventory_test playbooks/main.yml
 }
 
 case $1 in
