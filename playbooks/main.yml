@@ -5,4 +5,5 @@
      - hardening
      - api
      - webserver
+     - certbot
      - nginx
