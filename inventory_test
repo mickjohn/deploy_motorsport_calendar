@@ -9,4 +9,4 @@ user=mick
 group=mick
 vagrant=True
 lets_encrypt=False
-enable_ssl=False
+enable_ssl=True # Use self-signed cert to enable HTTPS

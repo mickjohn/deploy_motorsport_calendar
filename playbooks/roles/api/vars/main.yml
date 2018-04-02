@@ -2,7 +2,7 @@
 service_name: motorsport_calendar_apid
 local_dev_dir: /home/mick/Programs/rust/motorsport_calendar_api
 package_name: mscapi
-version: 1.4
+api_version: 1.4
 
 install_dir: /opt/mickjohn/api
 conf_file: conf.yml

@@ -9,3 +9,16 @@ lineinfile_items:
 
     - regexp: '^#*net.ipv6.conf.lo.disable_ipv6'
       line: 'net.ipv6.conf.lo.disable_ipv6 = 1'
+
+  sshd:
+    - regexp: '^#*PermitRootLogin'
+      line: 'PermitRootLogin no'
+
+    - regexp: '^#*PasswordAuthentication'
+      line: 'PasswordAuthentication no'
+
+    - regexp: '^#*KexAlgorithms'
+      line: 'KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,'
+
+    - regexp: '^#*MACs'
+      line: 'MACs umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,'

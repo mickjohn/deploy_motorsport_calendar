@@ -1,27 +1,18 @@
 ---
-# users
-# Fail2Ban
+# - name: Add users
+#   user:
+#     name: "{{ item.username }}"
+#   with_items: "{{ users }}"
+#   become: yes
 
-- name: Add users
-  user:
-    name: "{{ item.username }}"
-  with_items: "{{ users }}"
-  become: yes
-
-- name: Disable root login
+- name: Disable root login, disable password login, set KEX algorithms, set MACs
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#*PermitRootLogin'
-    line: 'PermitRootLogin no'
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items: "{{ lineinfile_items.sshd }}"
+  when: not vagrant
   become: yes
-
-- name: Disable password login
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#*PasswordAuthentication'
-    line: 'PasswordAuthentication no'
-  become: yes
-  when: vagrant != True
 
 - name: restart sshd
   service:
