@@ -1,10 +1,4 @@
 ---
-# - name: Add users
-#   user:
-#     name: "{{ item.username }}"
-#   with_items: "{{ users }}"
-#   become: yes
-
 - name: Disable root login, disable password login, set KEX algorithms, set MACs
   lineinfile:
     path: /etc/ssh/sshd_config
