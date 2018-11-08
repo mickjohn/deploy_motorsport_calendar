@@ -28,6 +28,7 @@
   template:
     src: api_config.j2
     dest: "/etc/motorsport_calendar_api/conf.yml"
+  become: yes
 
 - name: Render service config template
   template:

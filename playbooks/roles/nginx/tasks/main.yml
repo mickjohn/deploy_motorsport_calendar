@@ -24,6 +24,17 @@
     state: present
   become: yes
 
+- name: Write site configuration file templates
+  template:
+    src: "{{ site_conf_file }}.j2"
+    dest: "/etc/nginx/conf.d/{{ site_conf_file }}"
+  loop:
+    - www.mickjohn.com.conf
+    - games.mickjohn.com.conf
+  loop_control:
+    loop_var: site_conf_file
+  become: yes
+
 - name: Write config template
   template:
     src: nginx.conf.j2

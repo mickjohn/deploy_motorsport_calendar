@@ -1,0 +1,57 @@
+---
+
+- set_fact:
+    images:
+      - red_or_black_server
+      - red_or_black_web
+
+- name: Save docker image
+  docker_image:
+    name: "{{ item }}"
+    archive_path: /tmp/{{ item }}.tar
+    state: present
+  with_items: "{{ images }}"
+  delegate_to: 127.0.0.1
+  become: yes
+
+- name: Transfer image to server
+  copy:
+    src: /tmp/{{ item }}.tar
+    dest: /tmp/{{ item }}.tar
+  with_items: "{{ images }}"
+  become: yes
+
+- name: Load image
+  docker_image:
+    name: "{{ item }}"
+    load_path: /tmp/{{ item }}.tar
+    state: present
+    force: yes
+  with_items: "{{ images }}"
+  become: yes
+
+- name: Remove image tar
+  file:
+    path: /tmp/{{ item }}.tar
+    state: absent
+  with_items: "{{ images }}"
+  delegate_to: 127.0.0.1
+  become: yes
+
+- name: Create project directory
+  file:
+    path: /opt/red_or_black
+    state: directory
+  become: yes
+
+- name: Copy compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/red_or_black/docker-compose.yml
+  become: yes
+
+- name: Start docker service
+  docker_service:
+    project_src: /opt/red_or_black
+    recreate: always
+  become: yes

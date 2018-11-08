@@ -36,6 +36,7 @@
     ufw allow 2222/tcp # vagrant ssh
     ufw allow 80/tcp
     ufw allow 443/tcp
+    ufw allow 8010/tcp # red or black websocket
     echo y | ufw enable
     exit 0
   become: yes

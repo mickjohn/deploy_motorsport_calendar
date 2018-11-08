@@ -1,4 +1,4 @@
-localhost
+vagrant # points to 127.0.0.1 in hosts file
 
 [all:vars]
 ansible_connection=ssh

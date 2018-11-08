@@ -1,0 +1,17 @@
+---
+
+version: '3'
+services:
+  game_server:
+    image: red_or_black_server
+    restart: always
+    ports: 
+      - 9000:9000
+    environment:
+      RED_OR_BLACK_WEBSERVER_ADDRESS: "0.0.0.0"
+
+  web_server:
+    image: red_or_black_web
+    restart: always
+    ports: 
+      - 9080:80

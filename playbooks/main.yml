@@ -3,7 +3,9 @@
   roles:
      - users
      - hardening
+     - install_docker
      - api
      - webserver
+     - red_or_black
      - certbot
      - nginx

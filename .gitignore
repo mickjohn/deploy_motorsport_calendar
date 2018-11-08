@@ -3,3 +3,5 @@
 *rsa*
 _vagrantfile
 inventory
+.vagrant
+ssl

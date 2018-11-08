@@ -1,8 +1,8 @@
 ---
 service_name: motorsport_calendar_webserverd
-local_dev_dir: /home/mick/Programs/rust/motorsport_calendar_webserver
+local_dev_dir: /home/mick/Documents/Programs/rust/motorsport_calendar_projects/motorsport_calendar_webserver
 package_name: mscweb
-web_version: 1.7
+web_version: '1.10'
 
 config:
   api_url: "http://127.0.0.1:8000/events"
