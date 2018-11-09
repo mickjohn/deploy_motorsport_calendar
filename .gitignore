@@ -1,5 +1,6 @@
 *.pem
 *.pub
+*.p12
 *rsa*
 _vagrantfile
 inventory

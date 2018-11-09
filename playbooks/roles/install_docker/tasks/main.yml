@@ -29,7 +29,7 @@
 - name: Install docker
   apt:
     name: docker-ce
-    state: installed
+    state: present
     update_cache: yes
   become: yes
 
