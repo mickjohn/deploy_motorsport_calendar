@@ -1,0 +1,14 @@
+---
+
+images:
+  - name: msc_api
+    path: /home/mick/Documents/Programs/projects/www.mickjohn.com/msc_api.tar.zip
+    filename: msc_api.tar.zip
+
+  - name: msc_web
+    path: /home/mick/Documents/Programs/projects/www.mickjohn.com/msc_web.tar.zip
+    filename: msc_web.tar.zip
+
+volumes:
+  - name: msc_api_data
+    path: /var/lib/docker/volumes/msc_api_data

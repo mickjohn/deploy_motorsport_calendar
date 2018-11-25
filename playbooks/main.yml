@@ -4,8 +4,9 @@
      - users
      - hardening
      - install_docker
-     - api
-     - webserver
+     # - api
+     # - webserver
+     - main_site
      - red_or_black
      - certbot
      - nginx

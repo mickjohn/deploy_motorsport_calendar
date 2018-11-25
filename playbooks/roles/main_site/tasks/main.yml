@@ -35,18 +35,39 @@
 
 - name: Create project directory
   file:
-    path: /opt/red_or_black
+    path: /opt/mickjohn
     state: directory
   become: yes
 
 - name: Copy compose file
   copy:
     src: docker-compose.yml
-    dest: /opt/red_or_black/docker-compose.yml
+    dest: /opt/mickjohn/docker-compose.yml
   become: yes
+
+# - name: Create volumes
+#   docker_volume:
+#     name: "{{ volume.name }}"
+#     state: present
+#   loop: "{{ volumes }}"
+#   loop_control:
+#     loop_var: volume
+#   register: created_volumes
+#   become: yes
+
+# - name: Copy files volumes accross from local machine
+#   copy:
+#     src: "{{ item.volume.path }}"
+#     dest: "{{ item.volume.path }}"
+#   with_items: "{{ created_volumes.results }}"
+#   when: item.changed
+#   become: yes
+
+# - debug:
+#     var: created_volumes
 
 - name: Start docker service
   docker_service:
-    project_src: /opt/red_or_black
+    project_src: /opt/mickjohn
     recreate: always
   become: yes

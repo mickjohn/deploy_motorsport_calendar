@@ -1,0 +1,28 @@
+---
+
+version: '3'
+services:
+  msc_api:
+    image: msc_api
+    restart: always
+    volumes:
+      - msc_api_data:/var/lib/motorsport_calendar_api/database/
+    networks:
+      - msc
+    ports: 
+      - 8000:8000
+
+  msc_web:
+    image: msc_web
+    restart: always
+    networks:
+      - msc
+    ports: 
+      - 8080:8080
+
+networks:
+  msc:
+    driver: bridge
+
+volumes:
+  msc_api_data:

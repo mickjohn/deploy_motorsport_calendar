@@ -1,0 +1,10 @@
+---
+
+images:
+  - name: red_or_black_server
+    path: /home/mick/Documents/Programs/projects/games.mickjohn.com/red_or_black_server.tar.zip
+    filename: red_or_black_server.tar.zip
+
+  - name: red_or_black_web
+    path: /home/mick/Documents/Programs/projects/games.mickjohn.com/red_or_black_web.tar.zip
+    filename: red_or_black_web.tar.zip
