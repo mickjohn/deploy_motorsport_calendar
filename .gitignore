@@ -6,3 +6,7 @@ _vagrantfile
 inventory
 .vagrant
 ssl
+build_scripts/www.mickjohn.com/*.zip
+build_scripts/www.mickjohn.com/motorsport_*
+build_scripts/games.mickjohn.com/*.zip
+build_scripts/games.mickjohn.com/red_or_black*
