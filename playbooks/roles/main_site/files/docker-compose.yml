@@ -20,6 +20,14 @@ services:
     ports: 
       - 8080:8080
 
+  msc_adm:
+    image: msc_adm
+    restart: always
+    networks:
+      - msc
+    ports: 
+      - 7000:7000
+
 networks:
   msc:
     driver: bridge
