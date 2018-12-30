@@ -5,7 +5,7 @@ upstream backends {
 
 server {
   listen	80;
-  server_name www.mickjohn.com;
+  server_name mickjohn.com www.mickjohn.com;
   {% if enable_ssl or lets_encrypt %}
   return 301 https://$host$request_uri;
   {% else %}
@@ -20,7 +20,7 @@ server {
 {% if enable_ssl or lets_encrypt %}
 server {
   listen 443 ssl;
-  server_name www.mickjohn.com;
+  server_name mickjohn.com www.mickjohn.com;
   {% if enable_ssl %}
   ssl_certificate	{{ files.ssl_cert.dest }};
   ssl_certificate_key {{ files.ssl_key.dest }};
