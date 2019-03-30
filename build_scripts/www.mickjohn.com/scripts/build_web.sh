@@ -1,10 +1,18 @@
 ##############
 # Web Server #
 ##############
-echo "Cloning motorsport_calendar_webserver"
-git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_webserver.git
 
-cd motorsport_calendar_webserver
+if [ -f motorsport_calendar_webserver ];then
+  echo "motorsport_calendar_webserver directory already exists. Not cloning..."
+  echo "running git pull to update..."
+  cd motorsport_calendar_webserver
+  git pull
+else
+  echo "Cloning motorsport_calendar_webserver"
+  git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_webserver.git
+  cd motorsport_calendar_webserver
+fi
+
 echo "Building motorsport_calendar_webserver (This may take a while)"
 cargo build --release &> /dev/null
 

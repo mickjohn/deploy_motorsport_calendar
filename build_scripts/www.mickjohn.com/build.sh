@@ -27,10 +27,10 @@ echo "Building docker images for motorsport calendar webserver, motorsport calen
 echo "Removing existing built artefacts"
 rm msc_api.tar.zip msc_web.tar.zip &> /dev/null
 
-echo "Removing existing directories"
-for dir in $dirs; do
-  rm -rf "$dir"
-done
+# echo "Removing existing directories"
+# for dir in $dirs; do
+#   rm -rf "$dir"
+# done
 
 ./scripts/build_web.sh
 ./scripts/build_api.sh "$PASSWORD"
@@ -38,8 +38,10 @@ done
 
 chown mick:mick msc_*.tar.zip
 
-pwd
-echo "Cleaning up directories"
-for dir in $dirs; do
-  rm -rf "$dir"
-done
+# pwd
+# echo "Cleaning up directories"
+# for dir in $dirs; do
+#   rm -rf "$dir"
+# done
+
+echo "All done!!!"

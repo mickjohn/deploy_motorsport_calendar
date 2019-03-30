@@ -1,10 +1,18 @@
-##############
-# Web Server #
-##############
-echo "Cloning motorsport_calendar_admin_pages"
-git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_admin_pages.git
+################
+# Admin server #
+################
 
-cd motorsport_calendar_admin_pages
+if [ -f "motorsport_calendar_admin_pages" ]; then
+  echo "motorsport_calendar_admin_pages directory already exists. Not cloning..."
+  echo "running git pull to update..."
+  cd motorsport_calendar_admin_pages
+  git pull
+else
+  echo "Cloning motorsport_calendar_admin_pages"
+  git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_admin_pages.git
+  cd motorsport_calendar_admin_pages
+fi 
+
 echo "Building motorsport_calendar_admin_pages (This may take a while)"
 cargo build --release &> /dev/null
 

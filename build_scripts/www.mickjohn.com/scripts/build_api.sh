@@ -1,13 +1,20 @@
 ##############
 # Api Server #
-#############
+##############
 
 PASSWORD="$1"
 
-echo "Cloning motorsport_calendar_api"
-git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_api.git
+if [ -f "motorsport_calendar_api" ]; then
+  echo "motorsport_calendar_api directory already exists. Not cloning..."
+  echo "running git pull to update..."
+  cd motorsport_calendar_api
+  git pull
+else
+  echo "Cloning motorsport_calendar_api"
+  git clone --depth 1 -b master https://github.com/mickjohn/motorsport_calendar_api.git
+  cd motorsport_calendar_api
+fi
 
-cd motorsport_calendar_api
 echo "Building motorsport_calendar_api"
 cargo build --release
 
