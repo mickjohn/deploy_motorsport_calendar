@@ -1,1 +1,1 @@
-Build scripts for pulling down www.mickjohn.com projects and building them, then building dockerfiles for them.
+A make file for cloning the three www,mickjohn.com projects and building them & their docker images
