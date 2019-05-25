@@ -32,6 +32,7 @@
     - www.mickjohn.com.conf
     - games.mickjohn.com.conf
     - admin.mickjohn.com.conf
+    - api.mickjohn.com.conf
   loop_control:
     loop_var: site_conf_file
   become: yes
