@@ -5,6 +5,7 @@
      - hardening
      - install_docker
      - main_site
-     - red_or_black
+     # - red_or_black
+     - websocket_games
      - certbot
      - nginx

@@ -1,0 +1,10 @@
+---
+
+images:
+  - name: wbskt_games
+    path: ../build_scripts/games.mickjohn.com/wbskt_games.tar.zip
+    filename: wbskt_games.tar.zip
+
+  - name: wbskt_server
+    path: ../build_scripts/games.mickjohn.com/wbskt_server.tar.zip
+    filename: wbskt_server.tar.zip

@@ -60,7 +60,7 @@
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Frame-Options "DENY";
     add_header X-Content-Type-Options "nosniff";
-    add_header Content-Security-Policy "default-src 'self' wss://games.mickjohn.com:8010; font-src https://fonts.googleapis.com;img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self';base-uri 'none'; form-action 'none'; frame-ancestors 'none';";
+    # add_header Content-Security-Policy "default-src 'self' wss://games.mickjohn.com:8010; font-src https://fonts.googleapis.com;img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self';base-uri 'none'; form-action 'none'; frame-ancestors 'none';";
     location / {
       proxy_pass http://webserver;
     }

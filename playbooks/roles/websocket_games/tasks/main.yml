@@ -1,0 +1,52 @@
+---
+
+- name: Install unzip
+  package:
+    name: unzip
+    state: present
+  become: yes
+
+- name: Transfer image to server
+  copy:
+    src: "{{ image.path }}"
+    dest: "/tmp/{{ image.filename }}"
+  loop: "{{ images }}"
+  loop_control:
+    loop_var: image
+
+- name: Upzip images if needed
+  unarchive:
+    src: "/tmp/{{ image.filename }}"
+    dest: /tmp
+    copy: no
+  loop: "{{ images }}"
+  loop_control:
+    loop_var: image
+  when: image.filename.endswith('.zip')
+
+- name: Load image
+  docker_image:
+    name: "{{ item }}"
+    load_path: /tmp/{{ item.name }}.tar
+    state: present
+    force: yes
+  with_items: "{{ images }}"
+  become: yes
+
+- name: Create project directory
+  file:
+    path: /opt/websocket_games
+    state: directory
+  become: yes
+
+- name: Copy compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/websocket_games/docker-compose.yml
+  become: yes
+
+- name: Start docker service
+  docker_service:
+    project_src: /opt/websocket_games
+    recreate: always
+  become: yes
