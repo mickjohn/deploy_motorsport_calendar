@@ -1,37 +1,8 @@
 ---
 
-- name: Install unzip
-  package:
-    name: unzip
-    state: present
-  become: yes
-
-- name: Transfer image to server
-  copy:
-    src: "{{ image.path }}"
-    dest: "/tmp/{{ image.filename }}"
-  loop: "{{ images }}"
-  loop_control:
-    loop_var: image
-
-- name: Upzip images if needed
-  unarchive:
-    src: "/tmp/{{ image.filename }}"
-    dest: /tmp
-    copy: no
-  loop: "{{ images }}"
-  loop_control:
-    loop_var: image
-  when: image.filename.endswith('.zip')
-
-- name: Load image
-  docker_image:
-    name: "{{ item }}"
-    load_path: /tmp/{{ item.name }}.tar
-    state: present
-    force: yes
-  with_items: "{{ images }}"
-  become: yes
+- name: Include load image role
+  include_role:
+    name: load_image
 
 - name: Create project directory
   file:
@@ -46,7 +17,7 @@
   become: yes
 
 - name: Start docker service
-  docker_service:
+  docker_compose:
     project_src: /opt/red_or_black
     recreate: always
   become: yes

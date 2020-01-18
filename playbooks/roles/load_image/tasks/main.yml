@@ -1,0 +1,53 @@
+
+# Role to tranfer and load an image into docker
+#
+# Expects an images var e.g.:
+# 
+# images:
+#   - name: wbskt_games
+#     path: ../build_scripts/games.mickjohn.com/wbskt_games.tar.zip
+#     filename: wbskt_games.tar.zip
+
+#   - name: wbskt_server
+#     path: ../build_scripts/games.mickjohn.com/wbskt_server.tar.zip
+#     filename: wbskt_server.tar.zip
+
+- name: Install unzip
+  package:
+    name: unzip
+    state: present
+  become: yes
+
+- name: Transfer image to server
+  copy:
+    src: "{{ image.path }}"
+    dest: "/tmp/{{ image.filename }}"
+  loop: "{{ images }}"
+  loop_control:
+    loop_var: image
+  register: transfer_result
+
+- name: Upzip images if needed
+  unarchive:
+    src: "/tmp/{{ image.0.filename }}"
+    dest: /tmp
+    copy: no
+  loop: "{{ images|zip(transfer_result.results)|list }}"
+  loop_control:
+    loop_var: image
+  when:
+    - image.0.filename.endswith('.zip')
+    - image.1.changed
+
+- name: Load image
+  docker_image:
+    name: "{{ image.0.name }}"
+    source: load
+    load_path: /tmp/{{ image.0.name }}.tar
+    state: present
+    force: yes
+  loop: "{{ images|zip(transfer_result.results)|list }}"
+  loop_control:
+    loop_var: image
+  when: image.1.changed
+  become: yes
