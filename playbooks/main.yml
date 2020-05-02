@@ -1,11 +1,35 @@
 ---
 - hosts: all
-  roles:
-     - users
-     - hardening
-     - install_docker
-     - main_site
-     # - red_or_black
-     - websocket_games
-     - certbot
-     - nginx
+  vars:
+    required_roles:
+      before:
+        - users
+        - hardening
+        - install_docker
+      
+      # These optional roles can be overridden by specifying roles with the
+      # '-e' option on the command line. Handy if you only want to deploy one
+      # serivce instead of all.
+      optional:
+        - main_site
+        - red_or_black
+        - websocket_games
+      after:
+       - certbox
+       - nginx
+  tasks:
+
+    - name: Include first roles
+      include_role:
+        name: "{{ item }}"
+      loop: "{{ required_roles.before }}"
+
+    - name: Include optional roles
+      include_role:
+        name: "{{ item }}"
+      loop: "{{ service_roles | default(required_roles.before) }}"
+
+    - name: Include after roles
+      include_role:
+        name: "{{ item }}"
+      loop: "{{ required_roles.after }}"

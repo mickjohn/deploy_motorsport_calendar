@@ -1,0 +1,23 @@
+---
+
+- name: Include load image role
+  include_role:
+    name: load_image
+
+- name: Create project directory
+  file:
+    path: /opt/friendlyfileserver
+    state: directory
+  become: yes
+
+- name: Copy compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/friendlyfileserver/docker-compose.yml
+  become: yes
+
+- name: Start docker service
+  docker_compose:
+    project_src: /opt/friendlyfileserver
+    recreate: always
+  become: yes

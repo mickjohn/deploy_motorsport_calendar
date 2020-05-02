@@ -1,0 +1,7 @@
+---
+# Friendly file server 
+
+images:
+  - name: friendlyfileserver
+    path: ../friendlyfileserver.tar.zip
+    filename: red_or_black_server.tar.zip
