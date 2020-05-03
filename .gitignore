@@ -1,6 +1,6 @@
 *.pem
 *.p12
-*rsa*
+*rsa
 _vagrantfile
 inventory
 .vagrant
