@@ -23,6 +23,9 @@
         optional: "{{ service_roles.split(',') | list }}"
       when: service_roles is defined
 
+    - debug:
+        var: option
+
     - name: Include first roles
       include_role:
         name: "{{ item }}"
