@@ -5,7 +5,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items: "{{ lineinfile_items.sshd }}"
-  when: not vagrant
+  when: not vagrant | default(false)
   become: yes
 
 - name: restart sshd
