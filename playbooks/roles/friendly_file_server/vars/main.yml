@@ -4,4 +4,4 @@
 images:
   - name: friendlyfileserver
     path: ../../friendlyfileserver.tar.zip
-    filename: red_or_black_server.tar.zip
+    filename: friendlyfileserver.tar.zip
