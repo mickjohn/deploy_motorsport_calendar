@@ -30,7 +30,7 @@
 - name: Upzip images if needed
   unarchive:
     src: "/tmp/{{ image.0.filename }}"
-    dest: /tmp
+    dest: /tmp/{{ image.0.name }}
     copy: no
   loop: "{{ images|zip(transfer_result.results)|list }}"
   loop_control:
