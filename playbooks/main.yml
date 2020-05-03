@@ -20,7 +20,7 @@
   tasks:
 
     - set_fact:
-        optional: "{{ service_roles | split(',') | list }}"
+        optional: "{{ service_roles.split(',') | list }}"
       when: service_roles is defined
 
     - name: Include first roles
