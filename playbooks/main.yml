@@ -24,7 +24,7 @@
       when: service_roles is defined
 
     - debug:
-        var: option
+        var: optional
 
     - name: Include first roles
       include_role:
