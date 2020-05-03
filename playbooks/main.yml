@@ -8,7 +8,7 @@
         - install_docker
       
       # These optional roles can be overridden by specifying roles with the
-      # '-e' option on the command line. Handy if you only want to deploy one
+      # '-e service_roles="role1,role2"' option on the command line. Handy if you only want to deploy one
       # serivce instead of all.
       optional:
         - main_site
@@ -23,18 +23,21 @@
         optional: "{{ service_roles.split(',') | list }}"
       when: service_roles is defined
 
-    - debug:
-        var: optional
-
     - name: Include first roles
       include_role:
         name: "{{ item }}"
       loop: "{{ required_roles.before }}"
 
+    - name: Include specified role {{ service_role|('N/A') }}
+      include_role:
+        name: "{{ service_role }}"
+      when: service_role is defined
+
     - name: Include optional roles
       include_role:
         name: "{{ item }}"
       loop: "{{ service_roles | default(required_roles.before) }}"
+      when: service_role is not defined
 
     - name: Include after roles
       include_role:
