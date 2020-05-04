@@ -15,7 +15,7 @@
         - red_or_black
         - websocket_games
       after:
-       - certbox
+       - certbot
        - nginx
   tasks:
 
