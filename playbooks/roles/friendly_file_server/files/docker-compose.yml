@@ -2,8 +2,8 @@
 
 version: '2.0'
 services:
-  firendlyfileserver:
-    image: firendlyfileserver
+  friendlyfileserver:
+    image: friendlyfileserver
     ports:
         - "5000:5000"
     volumes:
