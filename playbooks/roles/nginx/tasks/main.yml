@@ -7,12 +7,12 @@
 #   become: yes
 
 # - name: Run certbot to get cert
-#   command: > 
-#     certbot 
-#     certonly 
-#     -d {{ domain }} 
-#     --agree-tos 
-#     -m {{ email }} 
+#   command: >
+#     certbot
+#     certonly
+#     -d {{ domain }}
+#     --agree-tos
+#     -m {{ email }}
 #     --standalone
 #     -n
 #   when: lets_encrypt
@@ -51,6 +51,7 @@
     group: "{{ item.value.group | default(omit) }}"
     mode: "{{ item.value.mode | default(omit) }}"
   with_dict: "{{ files }}"
+  when: enable_ssl | default(False)
   become: yes
 
 - name: Restart and enable nginx
