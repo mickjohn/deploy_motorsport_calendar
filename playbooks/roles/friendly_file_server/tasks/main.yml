@@ -6,18 +6,29 @@
 
 - name: Create project directory
   file:
-    path: /opt/friendlyfileserver
+    path: "{{ ffs_directory }}"
     state: directory
   become: yes
 
-- name: Copy compose file
-  copy:
-    src: docker-compose.yml
-    dest: /opt/friendlyfileserver/docker-compose.yml
+- name: Write compose file template
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ ffs_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0600'
   become: yes
+
+- name: Add credentials file
+  template:
+    src: 'credentials.j2'
+    dest: "{{ ffs_directory }}/{{ credentials_file }}"
+    owner: root
+    group: root
+    mode: '0600'
 
 - name: Start docker service
   docker_compose:
-    project_src: /opt/friendlyfileserver
+    project_src: "{{ ffs_directory }}"
     recreate: always
   become: yes

@@ -7,4 +7,5 @@ services:
     ports:
         - "5000:5000"
     volumes:
-        - /var/www/fileshare:/var/share
+        - "{{ share_directory }}:/var/share"
+        - "{{ ffs_directory }}/{{ credentials_file }}:/app/credentials"

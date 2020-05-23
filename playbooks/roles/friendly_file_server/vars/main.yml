@@ -1,7 +1,12 @@
 ---
 # Friendly file server 
 
+ffs_directory: /opt/friendlyfileserver
+credentials_file: credentials
+share_directory: /var/www/fileshare
+
 images:
   - name: friendlyfileserver
     path: ../../friendlyfileserver.tar.zip
     filename: friendlyfileserver.tar.zip
+  
