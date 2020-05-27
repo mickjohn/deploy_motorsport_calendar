@@ -37,6 +37,7 @@
     ufw allow 80/tcp
     ufw allow 443/tcp
     ufw allow 8010/tcp # red or black websocket
+    ufw allow 5001/tcp # ffs websocket
     echo y | ufw enable
     exit 0
   become: yes

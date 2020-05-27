@@ -6,6 +6,7 @@ services:
     image: friendlyfileserver
     ports:
         - "5000:5000"
+        - "5002:5002"
     volumes:
         - "{{ share_directory }}:/var/share"
         - "{{ ffs_directory }}/{{ credentials_file }}:/app/credentials"
