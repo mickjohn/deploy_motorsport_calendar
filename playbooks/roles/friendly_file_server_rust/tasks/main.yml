@@ -1,0 +1,35 @@
+---
+
+- name: Include load image role
+  include_role:
+    name: load_image
+
+- name: Create project directory
+  file:
+    path: "{{ ffs_directory }}"
+    state: directory
+  become: yes
+
+- name: Write compose file template
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ ffs_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0600'
+  become: yes
+
+- name: Add credentials file
+  template:
+    src: 'credentials.j2'
+    dest: "{{ ffs_directory }}/{{ credentials_file }}"
+    owner: root
+    group: root
+    mode: '0600'
+  become: yes
+
+- name: Start docker service
+  docker_compose:
+    project_src: "{{ ffs_directory }}"
+    recreate: always
+  become: yes

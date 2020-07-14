@@ -1,0 +1,11 @@
+---
+
+version: '2.0'
+services:
+  friendlyfileserver:
+    image: friendlyfileserver_rust
+    ports:
+        - "5000:5000"
+    volumes:
+        - "{{ share_directory }}:/var/share"
+        - "{{ ffs_directory }}/{{ credentials_file }}:/app/credentials"
